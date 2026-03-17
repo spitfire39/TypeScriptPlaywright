@@ -12,11 +12,10 @@ let createUserPage: CreateUserPage;
 
 test.describe('Create a new user', ()=>{
 
-    test.beforeEach(async ({browser}) => {
-        const page = await browser.newPage();
+    test.beforeEach(async ({page}) => {
         usersPage = new UsersPage(page);
         createUserPage = new CreateUserPage(page);
-        await usersPage.open('http://localhost:5173/users');
+        await usersPage.open(usersPage.usersPageUrl);
     })
 
     test('Create a new user from the database', async ({page}) => {
@@ -26,6 +25,6 @@ test.describe('Create a new user', ()=>{
         await createUserPage.fillConfirmPassword(userData.password);
         // await page.waitForTimeout(3000);
         await createUserPage.clickSaveButton();
-        // await expect(usersPage.checkForUserPresence(userData.userName)).toBeTruthy();
+        await expect(page.getByRole('heading', { name: 'Users' })).toBeVisible();
     })
 })

@@ -8,6 +8,8 @@ export abstract class AbstractPage {
         this.page = page;
     }
 
+    readonly mainPage:string = 'http://localhost:5173';
+
     // abstract open(url: string): Promise<void>;
     async open(url: string): Promise<void>{
         await this.page.goto(url);
